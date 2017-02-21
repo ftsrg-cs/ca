@@ -23,6 +23,6 @@ Implement the following methods:
 
 - Method `buildAbstraction()` in class `Abstractor`: construction of the abstract reachability graph. You can implement this method in terms of methods `close()` and `expand()`.
 
-- Method `expand(ArgNode)` in class `Abstractor`: expanding of a non-covered leaf node with all its abstract successors.
+- Method `expand(ArgNode)` in class `Abstractor`: expanding a non-covered leaf node with all its abstract successors.
 
 - Method `close(ArgNode)` in class `Abstractor`: covering a non-covered leaf node with an already reached node if possible.
