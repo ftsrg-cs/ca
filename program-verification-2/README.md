@@ -31,4 +31,4 @@ Implement the following methods:
 
 You can use `ArgVisualizer` to transform the reachability tree to an instance of `Graph` that can be serialized to Graphviz format using `GraphvizWriter`. The class `CfaVisualizer` serves the same purpose for CFAs.
 
-To quickly viusalize a `Graph`, use `GraphvizWriter.writeString()` and render the result using http://www.webgraphviz.com/-
+To quickly viusalize a `Graph`, use `GraphvizWriter.writeString()` and render the result using http://www.webgraphviz.com/.
