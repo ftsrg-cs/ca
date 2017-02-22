@@ -1,0 +1,38 @@
+package hu.bme.mit.ca.pred;
+
+import static hu.bme.mit.theta.core.decl.impl.Decls.Const;
+import static hu.bme.mit.theta.core.expr.impl.Exprs.Eq;
+import static hu.bme.mit.theta.core.expr.impl.Exprs.Gt;
+import static hu.bme.mit.theta.core.expr.impl.Exprs.Int;
+import static hu.bme.mit.theta.core.type.impl.Types.Int;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import hu.bme.mit.theta.core.expr.Expr;
+import hu.bme.mit.theta.core.model.Model;
+import hu.bme.mit.theta.core.type.IntType;
+import hu.bme.mit.theta.solver.Solver;
+import hu.bme.mit.theta.solver.z3.Z3SolverFactory;
+
+public final class FrameworkTest {
+
+	@Test
+	public void test() {
+		final Expr<IntType> x = Const("x", Int()).getRef();
+		final Expr<IntType> y = Const("y", Int()).getRef();
+
+		final Solver solver = Z3SolverFactory.getInstace().createSolver();
+
+		solver.add(Eq(x, Int(0)));
+		solver.add(Gt(x, y));
+		solver.check();
+
+		assertTrue(solver.getStatus().isSat());
+
+		final Model model = solver.getModel();
+
+		System.out.println(model);
+	}
+
+}
