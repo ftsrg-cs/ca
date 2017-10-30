@@ -1,22 +1,22 @@
 package hu.bme.mit.ca.pred.domain;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.Not;
+import static hu.bme.mit.theta.core.type.booltype.BoolExprs.Not;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import hu.bme.mit.theta.core.expr.Expr;
 import hu.bme.mit.theta.core.model.Model;
-import hu.bme.mit.theta.core.model.impl.Valuation;
-import hu.bme.mit.theta.core.type.BoolType;
-import hu.bme.mit.theta.core.utils.impl.PathUtils;
-import hu.bme.mit.theta.core.utils.impl.StmtUtils;
-import hu.bme.mit.theta.core.utils.impl.UnfoldResult;
-import hu.bme.mit.theta.core.utils.impl.VarIndexing;
-import hu.bme.mit.theta.formalism.cfa.CfaEdge;
+import hu.bme.mit.theta.core.model.Valuation;
+import hu.bme.mit.theta.core.type.Expr;
+import hu.bme.mit.theta.core.type.booltype.BoolType;
+import hu.bme.mit.theta.core.utils.PathUtils;
+import hu.bme.mit.theta.core.utils.StmtUnfoldResult;
+import hu.bme.mit.theta.core.utils.StmtUtils;
+import hu.bme.mit.theta.core.utils.VarIndexing;
+import hu.bme.mit.theta.formalism.cfa.CFA.Edge;
 import hu.bme.mit.theta.solver.Solver;
 import hu.bme.mit.theta.solver.z3.Z3SolverFactory;
 
@@ -61,15 +61,15 @@ public final class PredDomain {
 	public PredState lift(final Valuation valuation, final PredPrecision precision) {
 		checkNotNull(valuation);
 		checkNotNull(precision);
-		final Collection<Expr<? extends BoolType>> statePreds = new LinkedList<>();
+		final Collection<Expr<BoolType>> statePreds = new LinkedList<>();
 
-		final Expr<? extends BoolType> stateExpr = PathUtils.unfold(valuation.toExpr(), 0);
+		final Expr<BoolType> stateExpr = PathUtils.unfold(valuation.toExpr(), 0);
 
 		liftSolver.push();
 		liftSolver.add(stateExpr);
 
-		for (final Expr<? extends BoolType> pred : precision.getPredicates()) {
-			final Expr<? extends BoolType> predExpr = PathUtils.unfold(pred, 0);
+		for (final Expr<BoolType> pred : precision.getPredicates()) {
+			final Expr<BoolType> predExpr = PathUtils.unfold(pred, 0);
 
 			liftSolver.push();
 			liftSolver.add(Not(predExpr));
@@ -93,20 +93,19 @@ public final class PredDomain {
 		return PredState.of(statePreds);
 	}
 
-	public Collection<PredState> getSuccStates(final PredState state, final PredPrecision precision,
-			final CfaEdge edge) {
+	public Collection<PredState> getSuccStates(final PredState state, final PredPrecision precision, final Edge edge) {
 		checkNotNull(state);
 		checkNotNull(precision);
 		checkNotNull(edge);
 
 		final Collection<PredState> succStates = new ArrayList<>();
 
-		final UnfoldResult unfoldResult = StmtUtils.toExpr(edge.getStmts(), VarIndexing.all(0));
-		final Collection<? extends Expr<? extends BoolType>> edgeExprs = unfoldResult.getExprs();
+		final StmtUnfoldResult unfoldResult = StmtUtils.toExpr(edge.getStmt(), VarIndexing.all(0));
+		final Collection<? extends Expr<BoolType>> edgeExprs = unfoldResult.getExprs();
 		final VarIndexing indexing = unfoldResult.getIndexing();
 
-		final Expr<? extends BoolType> sourceExpr = PathUtils.unfold(state.toExpr(), 0);
-		final Collection<Expr<? extends BoolType>> transitionExprs = edgeExprs.stream().map(e -> PathUtils.unfold(e, 0))
+		final Expr<BoolType> sourceExpr = PathUtils.unfold(state.toExpr(), 0);
+		final Collection<Expr<BoolType>> transitionExprs = edgeExprs.stream().map(e -> PathUtils.unfold(e, 0))
 				.collect(toList());
 
 		solver.push();
@@ -121,7 +120,7 @@ public final class PredDomain {
 			final PredState nextSuccState = lift(nextSuccStateVal, precision);
 			succStates.add(nextSuccState);
 
-			final Expr<? extends BoolType> targetExpr = PathUtils.unfold(nextSuccState.toExpr(), indexing);
+			final Expr<BoolType> targetExpr = PathUtils.unfold(nextSuccState.toExpr(), indexing);
 			solver.add(Not(targetExpr));
 		}
 

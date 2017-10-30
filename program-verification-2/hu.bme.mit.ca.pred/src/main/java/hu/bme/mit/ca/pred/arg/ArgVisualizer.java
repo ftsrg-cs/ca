@@ -63,8 +63,7 @@ public final class ArgVisualizer {
 			final String sourceId = NODE_ID_PREFIX + nodeToId.get(edge.getSource());
 			final String targetId = NODE_ID_PREFIX + nodeToId.get(edge.getTarget());
 			final EdgeAttributes eAttributes = EdgeAttributes.builder()
-					.label(String.join("\\n",
-							edge.getEdge().getStmts().stream().map(s -> s.toString()).collect(toList())))
+					.label(edge.getEdge().getStmt().toString())
 					.color(LINE_COLOR).lineStyle(SUCC_EDGE_STYLE).build();
 			graph.addEdge(sourceId, targetId, eAttributes);
 		}

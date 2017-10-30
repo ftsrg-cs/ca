@@ -10,11 +10,11 @@ import java.util.Collections;
 import java.util.Optional;
 
 import hu.bme.mit.ca.pred.domain.PredState;
-import hu.bme.mit.theta.formalism.cfa.CfaEdge;
-import hu.bme.mit.theta.formalism.cfa.CfaLoc;
+import hu.bme.mit.theta.formalism.cfa.CFA.Edge;
+import hu.bme.mit.theta.formalism.cfa.CFA.Loc;
 
 public final class ArgNode {
-	private final CfaLoc loc;
+	private final Loc loc;
 	private final PredState state;
 
 	private final Optional<ArgEdge> inEdge;
@@ -22,7 +22,7 @@ public final class ArgNode {
 
 	private Optional<ArgNode> coveringNode;
 
-	private ArgNode(final Optional<ArgEdge> inEdge, final CfaLoc loc, final PredState state) {
+	private ArgNode(final Optional<ArgEdge> inEdge, final Loc loc, final PredState state) {
 		this.loc = checkNotNull(loc);
 		this.state = checkNotNull(state);
 		this.inEdge = checkNotNull(inEdge);
@@ -31,7 +31,7 @@ public final class ArgNode {
 		checkArgument(!inEdge.isPresent() || inEdge.get().getEdge().getTarget().equals(loc));
 	}
 
-	public static ArgNode root(final CfaLoc loc, final PredState state) {
+	public static ArgNode root(final Loc loc, final PredState state) {
 		return new ArgNode(Optional.empty(), loc, state);
 	}
 
@@ -41,7 +41,7 @@ public final class ArgNode {
 
 	////
 
-	public CfaLoc getLoc() {
+	public Loc getLoc() {
 		return loc;
 	}
 
@@ -93,7 +93,7 @@ public final class ArgNode {
 
 	////
 
-	public ArgNode createChild(final CfaEdge edge, final PredState targetState) {
+	public ArgNode createChild(final Edge edge, final PredState targetState) {
 		final ArgEdge outEdge = ArgEdge.create(this, edge, targetState);
 		outEdges.add(outEdge);
 		return outEdge.getTarget();

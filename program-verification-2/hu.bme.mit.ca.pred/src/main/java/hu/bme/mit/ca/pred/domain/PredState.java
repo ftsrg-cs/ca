@@ -2,34 +2,33 @@ package hu.bme.mit.ca.pred.domain;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static hu.bme.mit.theta.common.Utils.singleElementOf;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.And;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.True;
+import static hu.bme.mit.theta.core.type.booltype.BoolExprs.And;
+import static hu.bme.mit.theta.core.type.booltype.BoolExprs.True;
 
 import java.util.Collection;
 
 import com.google.common.collect.ImmutableSet;
 
-import hu.bme.mit.theta.common.ObjectUtils;
-import hu.bme.mit.theta.core.expr.Expr;
-import hu.bme.mit.theta.core.type.BoolType;
+import hu.bme.mit.theta.common.Utils;
+import hu.bme.mit.theta.core.type.Expr;
+import hu.bme.mit.theta.core.type.booltype.BoolType;
 
 public final class PredState {
 	private static final int HASH_SEED = 7621;
 	private static final PredState TOP = PredState.of(ImmutableSet.of());
 
-	private final Collection<Expr<? extends BoolType>> predicates;
+	private final Collection<Expr<BoolType>> predicates;
 
-	private volatile Expr<? extends BoolType> expr;
+	private volatile Expr<BoolType> expr;
 	private volatile int hashCode = 0;
 
-	private PredState(final Collection<? extends Expr<? extends BoolType>> predicates) {
+	private PredState(final Collection<? extends Expr<BoolType>> predicates) {
 		checkNotNull(predicates);
 		this.predicates = ImmutableSet.copyOf(predicates);
 		expr = convertToExpr(predicates);
 	}
 
-	private static Expr<? extends BoolType> convertToExpr(
-			final Collection<? extends Expr<? extends BoolType>> predicates) {
+	private static Expr<BoolType> convertToExpr(final Collection<? extends Expr<BoolType>> predicates) {
 		if (predicates.size() == 0) {
 			return True();
 		} else if (predicates.size() == 1) {
@@ -39,7 +38,7 @@ public final class PredState {
 		}
 	}
 
-	public static PredState of(final Collection<? extends Expr<? extends BoolType>> predicates) {
+	public static PredState of(final Collection<? extends Expr<BoolType>> predicates) {
 		return new PredState(predicates);
 	}
 
@@ -49,12 +48,12 @@ public final class PredState {
 
 	////
 
-	public Collection<Expr<? extends BoolType>> getPredicates() {
+	public Collection<Expr<BoolType>> getPredicates() {
 		return predicates;
 	}
 
-	public Expr<? extends BoolType> toExpr() {
-		Expr<? extends BoolType> result = expr;
+	public Expr<BoolType> toExpr() {
+		Expr<BoolType> result = expr;
 		if (expr == null) {
 			if (predicates.size() == 0) {
 				result = True();
@@ -95,7 +94,7 @@ public final class PredState {
 
 	@Override
 	public String toString() {
-		return ObjectUtils.toStringBuilder(getClass().getSimpleName()).addAll(predicates).toString();
+		return Utils.toStringBuilder(getClass().getSimpleName()).addAll(predicates).toString();
 	}
 
 }

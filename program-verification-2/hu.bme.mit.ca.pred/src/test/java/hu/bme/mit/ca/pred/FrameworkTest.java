@@ -1,17 +1,16 @@
 package hu.bme.mit.ca.pred;
 
-import static hu.bme.mit.theta.core.decl.impl.Decls.Const;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.Eq;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.Gt;
-import static hu.bme.mit.theta.core.expr.impl.Exprs.Int;
-import static hu.bme.mit.theta.core.type.impl.Types.Int;
+import static hu.bme.mit.theta.core.decl.Decls.Const;
+import static hu.bme.mit.theta.core.type.inttype.IntExprs.Eq;
+import static hu.bme.mit.theta.core.type.inttype.IntExprs.Gt;
+import static hu.bme.mit.theta.core.type.inttype.IntExprs.Int;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import hu.bme.mit.theta.core.expr.Expr;
 import hu.bme.mit.theta.core.model.Model;
-import hu.bme.mit.theta.core.type.IntType;
+import hu.bme.mit.theta.core.type.Expr;
+import hu.bme.mit.theta.core.type.inttype.IntType;
 import hu.bme.mit.theta.solver.Solver;
 import hu.bme.mit.theta.solver.z3.Z3SolverFactory;
 

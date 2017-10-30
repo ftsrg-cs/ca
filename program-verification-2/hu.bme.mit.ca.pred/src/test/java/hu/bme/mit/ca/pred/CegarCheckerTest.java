@@ -2,6 +2,9 @@ package hu.bme.mit.ca.pred;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -13,8 +16,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 import hu.bme.mit.ca.pred.CegarChecker.SearchStrategy;
 import hu.bme.mit.ca.pred.arg.ArgVisualizer;
-import hu.bme.mit.theta.common.visualization.GraphvizWriter;
+import hu.bme.mit.theta.common.visualization.writer.GraphvizWriter;
 import hu.bme.mit.theta.formalism.cfa.CFA;
+import hu.bme.mit.theta.formalism.cfa.dsl.CfaDslManager;
 
 @RunWith(value = Parameterized.class)
 public final class CegarCheckerTest {
@@ -29,39 +33,30 @@ public final class CegarCheckerTest {
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
 
-				{ "src/test/resources/trivial/ca-ex_false.c", false },
+				{ "src/test/resources/ca-ex_false.cfa", false },
 
-				{ "src/test/resources/trivial/ca-ex-const_false.c", false },
+				{ "src/test/resources/counter5_false.cfa", false },
 
-				{ "src/test/resources/trivial/ca-lock_false.c", false },
+				{ "src/test/resources/counter5_true.cfa", true },
 
-				{ "src/test/resources/trivial/ca-nop_false.c", false },
+				{ "src/test/resources/gcd_false.cfa", false },
 
-				{ "src/test/resources/trivial/lock_true.c", true },
-
-				{ "src/test/resources/trivial/counter_true.c", true }
-
-				// { "src/test/resources/locks/locks9_true.c", true },
-				//
-				// { "src/test/resources/locks/locks10_true.c", true },
-				//
-				// { "src/test/resources/locks/locks14_false.c", false },
-				//
-				// { "src/test/resources/locks/locks15_false.c", false }
+				{ "src/test/resources/locking_true.cfa", false },
 
 		});
 	}
 
 	@Test
-	public void testCegar() {
-		final CFA cfa = SourceToCfaTransformer.largeBlockEncoding(filepath);
+	public void testCegar() throws IOException {
+		final InputStream inputStream = new FileInputStream(filepath);
+		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = CegarChecker.create(cfa, SearchStrategy.DEPTH_FIRST);
 		final SafetyResult result = checker.check();
 
 		if (safe) {
 			assertTrue(result.isSafe());
-			System.out
-					.println(new GraphvizWriter().writeString(ArgVisualizer.visualize(result.asSafe().getRootNode())));
+			System.out.println(
+					GraphvizWriter.getInstance().writeString(ArgVisualizer.visualize(result.asSafe().getRootNode())));
 		} else {
 			assertTrue(result.isUnsafe());
 		}

@@ -1,0 +1,35 @@
+main process cfa {
+	var b : int
+	var c : int
+	var tmp_1 : int
+	var a : int
+	var tmp_0 : int
+
+	error loc L2
+	loc L7
+	init loc L0
+	loc L8
+	final loc L1
+
+	L7 -> L7 {
+		assume a /= 0
+		c := a
+		a := b mod a
+		b := c
+	}
+	L0 -> L7 {
+		havoc tmp_0
+		a := tmp_0
+		havoc tmp_1
+		b := tmp_1
+	}
+	L8 -> L2 {
+		assume not (b /= 0)
+	}
+	L8 -> L1 {
+		assume b /= 0
+	}
+	L7 -> L8 {
+		assume not (a /= 0)
+	}
+}

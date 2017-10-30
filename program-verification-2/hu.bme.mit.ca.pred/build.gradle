@@ -5,20 +5,13 @@ repositories {
 }
 
 dependencies {
-  compile group: 'com.google.guava', name: 'guava', version: '19.0'
-  compile group: 'commons-cli', name: 'commons-cli', version: '1.3.1'
+  compile group: 'org.antlr', name: 'antlr4', version: '4.5.3'
+  compile group: 'com.google.guava', name: 'guava', version: '21.0'
   compile group: 'junit', name: 'junit', version: '4.12'
-  compile group:  'org.mockito', name: 'mockito-core', version: '2.2.11'
-  compile group: 'org.eclipse.core', name: 'runtime', version: '3.10.0-v20140318-2214'
-  compile group: 'org.eclipse.core', name: 'resources', version: '3.3.0-v20070604'
   compile files('./jar/com.microsoft.z3.jar')
-  compile files('./jar/org.eclipse.cdt.core.jar')
   compile files('./jar/hu.bme.mit.theta.common-1.0.0-SNAPSHOT.jar')
   compile files('./jar/hu.bme.mit.theta.core-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.formalism-1.0.0-SNAPSHOT.jar')
   compile files('./jar/hu.bme.mit.theta.formalism.cfa-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.frontend.c.parser-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.frontend.c-1.0.0-SNAPSHOT.jar')
   compile files('./jar/hu.bme.mit.theta.solver.z3-1.0.0-SNAPSHOT.jar')
   compile files('./jar/hu.bme.mit.theta.solver-1.0.0-SNAPSHOT.jar')
 }
