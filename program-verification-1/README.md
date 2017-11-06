@@ -1,4 +1,4 @@
-# Program verification I: Bounded model checking
+# Program verification I: bounded model checking
 
 ## Buiding with Gradle
 
