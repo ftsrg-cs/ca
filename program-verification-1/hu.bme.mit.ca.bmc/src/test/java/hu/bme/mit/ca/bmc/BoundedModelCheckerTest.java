@@ -1,7 +1,10 @@
 package hu.bme.mit.ca.bmc;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -12,43 +15,47 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import hu.bme.mit.theta.formalism.cfa.CFA;
+import hu.bme.mit.theta.formalism.cfa.dsl.CfaDslManager;
 
 @RunWith(value = Parameterized.class)
 public final class BoundedModelCheckerTest {
-	private static final String PATH = "src/test/resources/trivial/";
 
 	@Parameter(value = 0)
-	public String filename;
+	public String filepath;
 
-	@Parameters(name = "{index}: {0}")
+	@Parameter(value = 1)
+	public boolean safe;
+
+	@Parameters(name = "{index}: {0}, {1}")
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
 
-				{ "ca-ex_false.c" },
+				{ "src/test/resources/ca-ex_false.cfa", false },
 
-				{ "ca-ex-const_false.c" },
+				{ "src/test/resources/counter5_false.cfa", false },
 
-				{ "ca-lock_false.c" },
+				{ "src/test/resources/counter5_true.cfa", true },
 
-				{ "ca-nop_false.c" },
+				{ "src/test/resources/gcd_false.cfa", false },
 
-				{ "gcd0_false.c" },
-
-				{ "gcd0-const_false.c" },
-
-				{ "state-machine0_false.c" }
+				{ "src/test/resources/locking_true.cfa", false },
 
 		});
 	}
 
 	@Test
-	public void testTrivial() {
-		final CFA cfa = SourceToCfaTransformer.largeBlockEncoding(PATH + filename);
-		final SafetyChecker checker = new BoundedModelChecker(cfa, 20, 10);
-		final SafetyStatus status = checker.check();
+	public void test() throws IOException {
+		final InputStream inputStream = new FileInputStream(filepath);
+		final CFA cfa = CfaDslManager.createCfa(inputStream);
+		final SafetyChecker checker = BoundedModelChecker.create(cfa, 20, 5);
+		final SafetyResult result = checker.check();
 
-		assertTrue(status.isUnsafe());
-		System.out.println(status.asUnsafe().getCounterexample());
+		if (safe) {
+			assertEquals(SafetyResult.UNKNOWN, result);
+		} else {
+			assertEquals(SafetyResult.UNSAFE, result);
+		}
+
 	}
 
 }

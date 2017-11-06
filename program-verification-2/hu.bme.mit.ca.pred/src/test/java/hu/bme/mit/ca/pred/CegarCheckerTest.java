@@ -47,7 +47,7 @@ public final class CegarCheckerTest {
 	}
 
 	@Test
-	public void testCegar() throws IOException {
+	public void test() throws IOException {
 		final InputStream inputStream = new FileInputStream(filepath);
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = CegarChecker.create(cfa, SearchStrategy.DEPTH_FIRST);

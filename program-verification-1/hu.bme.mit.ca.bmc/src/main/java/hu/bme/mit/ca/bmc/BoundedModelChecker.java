@@ -9,13 +9,13 @@ import com.google.common.base.Stopwatch;
 
 import hu.bme.mit.theta.formalism.cfa.CFA;
 
-final class BoundedModelChecker implements SafetyChecker {
+public final class BoundedModelChecker implements SafetyChecker {
 
 	private final CFA cfa;
 	private final int bound;
 	private final int timeout;
 
-	public BoundedModelChecker(final CFA cfa, final int bound, final int timeout) {
+	private BoundedModelChecker(final CFA cfa, final int bound, final int timeout) {
 		checkArgument(bound >= 0);
 		checkArgument(timeout >= 0);
 
@@ -24,8 +24,12 @@ final class BoundedModelChecker implements SafetyChecker {
 		this.timeout = timeout;
 	}
 
+	public static BoundedModelChecker create(final CFA cfa, final int bound, final int timeout) {
+		return new BoundedModelChecker(cfa, bound, timeout);
+	}
+
 	@Override
-	public SafetyStatus check() {
+	public SafetyResult check() {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 
 		while (stopwatch.elapsed(TimeUnit.SECONDS) < timeout) {
@@ -40,7 +44,7 @@ final class BoundedModelChecker implements SafetyChecker {
 
 		stopwatch.stop();
 
-		return SafetyStatus.timeout(stopwatch.elapsed(TimeUnit.SECONDS));
+		return SafetyResult.TIMEOUT;
 	}
 
 }
