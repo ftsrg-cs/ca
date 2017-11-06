@@ -41,7 +41,7 @@ public final class CegarCheckerTest {
 
 				{ "src/test/resources/gcd_false.cfa", false },
 
-				{ "src/test/resources/locking_true.cfa", false },
+				{ "src/test/resources/locking_true.cfa", true },
 
 		});
 	}
