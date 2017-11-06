@@ -13,5 +13,4 @@
 
 ## Buiding with Gradle
 
-- `./gradlew build` for normal build
-- `./gradlew shadow` to obtain fat jar
+- `./gradlew build`
