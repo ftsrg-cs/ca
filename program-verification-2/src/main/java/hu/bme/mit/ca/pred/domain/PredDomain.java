@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import hu.bme.mit.theta.core.model.Model;
 import hu.bme.mit.theta.core.model.Valuation;
 import hu.bme.mit.theta.core.type.Expr;
 import hu.bme.mit.theta.core.type.booltype.BoolType;
@@ -114,7 +113,7 @@ public final class PredDomain {
 		solver.add(transitionExprs);
 
 		while (solver.check().isSat()) {
-			final Model model = solver.getModel();
+			final Valuation model = solver.getModel();
 			final Valuation nextSuccStateVal = PathUtils.extractValuation(model, indexing);
 
 			final PredState nextSuccState = lift(nextSuccStateVal, precision);

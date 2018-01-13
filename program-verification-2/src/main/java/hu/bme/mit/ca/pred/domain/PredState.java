@@ -94,7 +94,7 @@ public final class PredState {
 
 	@Override
 	public String toString() {
-		return Utils.toStringBuilder(getClass().getSimpleName()).addAll(predicates).toString();
+		return Utils.lispStringBuilder(getClass().getSimpleName()).aligned().addAll(predicates).toString();
 	}
 
 }

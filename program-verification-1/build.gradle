@@ -2,18 +2,19 @@ apply plugin: 'java'
 
 repositories {
 	mavenCentral()
+	maven {
+		url  'https://dl.bintray.com/ftsrg/maven'
+	}
 }
 
 dependencies {
-  compile group: 'org.antlr', name: 'antlr4', version: '4.5.3'
-  compile group: 'com.google.guava', name: 'guava', version: '21.0'
-  compile group: 'junit', name: 'junit', version: '4.12'
-  compile files('./jar/com.microsoft.z3.jar')
-  compile files('./jar/hu.bme.mit.theta.common-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.core-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.formalism.cfa-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.solver.z3-1.0.0-SNAPSHOT.jar')
-  compile files('./jar/hu.bme.mit.theta.solver-1.0.0-SNAPSHOT.jar')
+	compile group: 'z3', name: 'com.microsoft.z3', version: '4.5.0'
+	compile group: 'theta', name: 'hu.bme.mit.theta.core', version: '0.0.1'
+	compile group: 'theta', name: 'hu.bme.mit.theta.formalism.cfa', version: '0.0.1'
+	compile group: 'theta', name: 'hu.bme.mit.theta.solver', version: '0.0.1'
+	compile group: 'theta', name: 'hu.bme.mit.theta.solver.z3', version: '0.0.1'
+	compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
+	testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 test {

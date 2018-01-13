@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import hu.bme.mit.theta.core.model.Model;
+import hu.bme.mit.theta.core.model.Valuation;
 import hu.bme.mit.theta.core.type.Expr;
 import hu.bme.mit.theta.core.type.inttype.IntType;
 import hu.bme.mit.theta.solver.Solver;
@@ -29,7 +29,7 @@ public final class FrameworkTest {
 
 		assertTrue(solver.getStatus().isSat());
 
-		final Model model = solver.getModel();
+		final Valuation model = solver.getModel();
 
 		System.out.println(model);
 	}

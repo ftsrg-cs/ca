@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.Test;
 
 import hu.bme.mit.theta.core.decl.VarDecl;
-import hu.bme.mit.theta.core.model.Model;
+import hu.bme.mit.theta.core.model.Valuation;
 import hu.bme.mit.theta.core.stmt.Stmt;
 import hu.bme.mit.theta.core.type.Expr;
 import hu.bme.mit.theta.core.type.booltype.BoolType;
@@ -52,7 +52,7 @@ public final class FrameworkTest {
 
 		assertTrue(solver.getStatus().isSat());
 
-		final Model model = solver.getModel();
+		final Valuation model = solver.getModel();
 
 		System.out.println(model);
 	}
