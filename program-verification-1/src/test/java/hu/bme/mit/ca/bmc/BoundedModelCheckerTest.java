@@ -47,7 +47,7 @@ public final class BoundedModelCheckerTest {
 	public void test() throws IOException {
 		final InputStream inputStream = new FileInputStream(filepath);
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
-		final SafetyChecker checker = BoundedModelChecker.create(cfa, 20, 5);
+		final SafetyChecker checker = BoundedModelChecker.create(cfa, 30, 5);
 
 //		final SafetyResult result = checker.check();
 //		if (safe) {
