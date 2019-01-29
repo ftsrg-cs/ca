@@ -10,7 +10,7 @@ import hu.bme.mit.ca.pred.arg.ArgNode;
 import hu.bme.mit.ca.pred.domain.PredDomain;
 import hu.bme.mit.ca.pred.domain.PredPrecision;
 import hu.bme.mit.ca.pred.waitlist.Waitlist;
-import hu.bme.mit.theta.formalism.cfa.CFA;
+import hu.bme.mit.theta.cfa.CFA;
 
 final class Abstractor {
 	private final CFA cfa;

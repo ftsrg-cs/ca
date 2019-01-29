@@ -1,6 +1,6 @@
 package hu.bme.mit.ca.bmc;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import hu.bme.mit.theta.formalism.cfa.CFA;
-import hu.bme.mit.theta.formalism.cfa.dsl.CfaDslManager;
+import hu.bme.mit.theta.cfa.CFA;
+import hu.bme.mit.theta.cfa.dsl.CfaDslManager;
 
 @RunWith(value = Parameterized.class)
 public final class BoundedModelCheckerTest {

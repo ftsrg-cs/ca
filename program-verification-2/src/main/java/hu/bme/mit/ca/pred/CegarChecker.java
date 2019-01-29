@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import hu.bme.mit.ca.pred.waitlist.FifoWaitlist;
 import hu.bme.mit.ca.pred.waitlist.LifoWaitlist;
 import hu.bme.mit.ca.pred.waitlist.Waitlist;
-import hu.bme.mit.theta.formalism.cfa.CFA;
+import hu.bme.mit.theta.cfa.CFA;
 
 public final class CegarChecker implements SafetyChecker {
 	private final Abstractor abstractor;
@@ -28,7 +28,7 @@ public final class CegarChecker implements SafetyChecker {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub");
 	}
 
-	public static enum SearchStrategy {
+	public enum SearchStrategy {
 		BREADTH_FIRST {
 			@Override
 			Waitlist createWaitlist() {

@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.Optional;
 
 import hu.bme.mit.ca.pred.domain.PredState;
-import hu.bme.mit.theta.formalism.cfa.CFA.Edge;
-import hu.bme.mit.theta.formalism.cfa.CFA.Loc;
+import hu.bme.mit.theta.cfa.CFA.Edge;
+import hu.bme.mit.theta.cfa.CFA.Loc;
 
 public final class ArgNode {
 	private final Loc loc;

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
 
-import hu.bme.mit.theta.formalism.cfa.CFA;
+import hu.bme.mit.theta.cfa.CFA;
 
 public final class BoundedModelChecker implements SafetyChecker {
 

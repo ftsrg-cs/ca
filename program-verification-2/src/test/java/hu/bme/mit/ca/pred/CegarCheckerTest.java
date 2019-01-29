@@ -1,6 +1,6 @@
 package hu.bme.mit.ca.pred;
 
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,10 +15,10 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import hu.bme.mit.ca.pred.CegarChecker.SearchStrategy;
-import hu.bme.mit.ca.pred.arg.ArgVisualizer;
-import hu.bme.mit.theta.common.visualization.writer.GraphvizWriter;
-import hu.bme.mit.theta.formalism.cfa.CFA;
-import hu.bme.mit.theta.formalism.cfa.dsl.CfaDslManager;
+//import hu.bme.mit.ca.pred.arg.ArgVisualizer;
+import hu.bme.mit.theta.cfa.CFA;
+import hu.bme.mit.theta.cfa.dsl.CfaDslManager;
+//import hu.bme.mit.theta.common.visualization.writer.GraphvizWriter;
 
 @RunWith(value = Parameterized.class)
 public final class CegarCheckerTest {
@@ -51,7 +51,7 @@ public final class CegarCheckerTest {
 		final InputStream inputStream = new FileInputStream(filepath);
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = CegarChecker.create(cfa, SearchStrategy.DEPTH_FIRST);
-		
+
 //		final SafetyResult result = checker.check();
 //		if (safe) {
 //			assertTrue(result.isSafe());

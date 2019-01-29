@@ -23,11 +23,10 @@ repositories {
 }
 
 dependencies {
+  compile group: 'theta', name: 'hu.bme.mit.theta.cfa', version: '0.0.1'
   compile group: 'theta', name: 'hu.bme.mit.theta.core', version: '0.0.1'
-  compile group: 'theta', name: 'hu.bme.mit.theta.formalism.cfa', version: '0.0.1'
   compile group: 'theta', name: 'hu.bme.mit.theta.solver', version: '0.0.1'
   compile group: 'theta', name: 'hu.bme.mit.theta.solver.z3', version: '0.0.1'
-  compile group: 'z3', name: 'com.microsoft.z3', version: '4.5.0'
   compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
   compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: kotlin_version
   testCompile group: 'junit', name: 'junit', version: '4.12'

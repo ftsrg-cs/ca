@@ -3,7 +3,7 @@ package hu.bme.mit.ca.pred.arg;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import hu.bme.mit.ca.pred.domain.PredState;
-import hu.bme.mit.theta.formalism.cfa.CFA.Edge;
+import hu.bme.mit.theta.cfa.CFA.Edge;
 
 public final class ArgEdge {
 	private final ArgNode source;
