@@ -36,7 +36,7 @@ public final class BoundedModelCheckerTest {
 
 				{ "src/test/resources/counter5_true.cfa", true },
 
-				{ "src/test/resources/gcd_false.cfa", false },
+				{ "src/test/resources/gcd_true.cfa", true },
 
 				{ "src/test/resources/locking_true.cfa", true },
 
