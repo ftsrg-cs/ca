@@ -26,19 +26,22 @@ public final class BoundedModelCheckerTest {
 	@Parameter(value = 1)
 	public boolean safe;
 
+	@Parameter(value = 2)
+	public int bound;
+
 	@Parameters(name = "{index}: {0}, {1}")
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
 
-				{ "src/test/resources/ca-ex_false.cfa", false },
+				{ "src/test/resources/ca-ex_false.cfa", false, 30 },
 
-				{ "src/test/resources/counter5_false.cfa", false },
+				{ "src/test/resources/counter5_false.cfa", false, 30 },
 
-				{ "src/test/resources/counter5_true.cfa", true },
+				{ "src/test/resources/counter5_true.cfa", true, 30 },
 
-				{ "src/test/resources/gcd_true.cfa", true },
+				{ "src/test/resources/gcd_true.cfa", true, 15 },
 
-				{ "src/test/resources/locking_true.cfa", true },
+				{ "src/test/resources/locking_true.cfa", true, 30 },
 
 		});
 	}
@@ -47,7 +50,7 @@ public final class BoundedModelCheckerTest {
 	public void test() throws IOException {
 		final InputStream inputStream = new FileInputStream(filepath);
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
-		final SafetyChecker checker = BoundedModelChecker.create(cfa, 30, 5);
+		final SafetyChecker checker = BoundedModelChecker.create(cfa, bound, 5);
 
 //		final SafetyResult result = checker.check();
 //		if (safe) {
