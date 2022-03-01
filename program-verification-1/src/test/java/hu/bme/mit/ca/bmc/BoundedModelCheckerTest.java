@@ -52,6 +52,7 @@ public final class BoundedModelCheckerTest {
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = BoundedModelChecker.create(cfa, bound, 5);
 
+//		Uncomment after implementation!
 //		final SafetyResult result = checker.check();
 //		if (safe) {
 //			assertEquals(SafetyResult.UNKNOWN, result);

@@ -52,6 +52,7 @@ public final class CegarCheckerTest {
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = CegarChecker.create(cfa, SearchStrategy.DEPTH_FIRST);
 
+//		Uncomment after implementation!
 //		final SafetyResult result = checker.check();
 //		if (safe) {
 //			assertTrue(result.isSafe());

@@ -21,7 +21,7 @@ public final class FrameworkTest {
 		final Expr<IntType> x = Const("x", Int()).getRef();
 		final Expr<IntType> y = Const("y", Int()).getRef();
 
-		final Solver solver = Z3SolverFactory.getInstace().createSolver();
+		final Solver solver = Z3SolverFactory.getInstance().createSolver();
 
 		solver.add(Eq(x, Int(0)));
 		solver.add(Gt(x, y));

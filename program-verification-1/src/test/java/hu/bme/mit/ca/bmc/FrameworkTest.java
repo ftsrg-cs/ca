@@ -45,7 +45,7 @@ public final class FrameworkTest {
 
 		System.out.println(exprs);
 
-		final Solver solver = Z3SolverFactory.getInstace().createSolver();
+		final Solver solver = Z3SolverFactory.getInstance().createSolver();
 
 		solver.add(exprs);
 		solver.check();

@@ -10,36 +10,36 @@ abstract class RefinementResult {
 	private RefinementResult() {
 	}
 
-	public static Success success(final PredPrecision precision) {
-		return new Success(precision);
+	public static Spurious spurious(final PredPrecision precision) {
+		return new Spurious(precision);
 	}
 
-	public static Failure failure(final ArgNode errorNode) {
-		return new Failure(errorNode);
+	public static Unsafe unsafe(final ArgNode errorNode) {
+		return new Unsafe(errorNode);
 	}
 
-	public boolean isSuccess() {
+	public boolean isSpurious() {
 		return false;
 	}
 
-	public boolean isFailure() {
+	public boolean isUnsafe() {
 		return false;
 	}
 
-	public Success asSuccess() {
+	public Spurious asSpurious() {
 		throw new ClassCastException();
 	}
 
-	public Failure asFailure() {
+	public Unsafe asUnsafe() {
 		throw new ClassCastException();
 	}
 
 	////
 
-	public static final class Success extends RefinementResult {
+	public static final class Spurious extends RefinementResult {
 		private final PredPrecision precision;
 
-		private Success(final PredPrecision precision) {
+		private Spurious(final PredPrecision precision) {
 			this.precision = checkNotNull(precision);
 		}
 
@@ -48,12 +48,12 @@ abstract class RefinementResult {
 		}
 
 		@Override
-		public boolean isSuccess() {
+		public boolean isSpurious() {
 			return true;
 		}
 
 		@Override
-		public Success asSuccess() {
+		public Spurious asSpurious() {
 			return this;
 		}
 
@@ -63,10 +63,10 @@ abstract class RefinementResult {
 		}
 	}
 
-	public static final class Failure extends RefinementResult {
+	public static final class Unsafe extends RefinementResult {
 		private final ArgNode errorNode;
 
-		private Failure(final ArgNode errorNode) {
+		private Unsafe(final ArgNode errorNode) {
 			this.errorNode = checkNotNull(errorNode);
 		}
 
@@ -75,12 +75,12 @@ abstract class RefinementResult {
 		}
 
 		@Override
-		public boolean isFailure() {
+		public boolean isUnsafe() {
 			return true;
 		}
 
 		@Override
-		public Failure asFailure() {
+		public Unsafe asUnsafe() {
 			return this;
 		}
 

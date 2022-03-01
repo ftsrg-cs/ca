@@ -30,13 +30,18 @@ final class Refiner {
 	private final ItpSolver solver;
 
 	private Refiner() {
-		solver = Z3SolverFactory.getInstace().createItpSolver();
+		solver = Z3SolverFactory.getInstance().createItpSolver();
 	}
 
 	public static Refiner create() {
 		return new Refiner();
 	}
 
+	/**
+	 *
+	 * @param errorNode
+	 * @return A Success refinement result if
+	 */
 	public RefinementResult refine(final ArgNode errorNode) {
 		solver.push();
 
@@ -78,7 +83,7 @@ final class Refiner {
 		final RefinementResult result;
 
 		if (concretizable) {
-			result = RefinementResult.failure(errorNode);
+			result = RefinementResult.unsafe(errorNode);
 		} else {
 			final List<Expr<BoolType>> interpolants = new ArrayList<>();
 			final Interpolant interpolant = solver.getInterpolant(pattern);
@@ -88,7 +93,7 @@ final class Refiner {
 			final Collection<Expr<BoolType>> atoms = interpolants.stream().flatMap(e -> getAtoms(e).stream())
 					.collect(toSet());
 			final PredPrecision precision = PredPrecision.of(atoms);
-			result = RefinementResult.success(precision);
+			result = RefinementResult.spurious(precision);
 		}
 
 		solver.pop();

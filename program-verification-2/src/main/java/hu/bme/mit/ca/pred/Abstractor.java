@@ -45,17 +45,21 @@ final class Abstractor {
 		}
 
 		public AbstractionResult buildAbstraction() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("TODO: auto-generated method stub");
+			// TODO Implement the abstract state space exploration here:
+			//  	build an ARG using the expand and close methods;
+			//		use the waitlist
+			throw new UnsupportedOperationException("TODO: buildAbstraction method not implemented!");
 		}
 
 		private void close(final ArgNode node) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("TODO: auto-generated method stub");
+			// TODO Implement cover checking here:
+			//  	for each non-covered reached ARG node, check whether it can cover the node given in the argument,
+			//		and if one is found, use the coverWith function of ArgNode to set the covering edge
+			throw new UnsupportedOperationException("TODO: close method not implemented");
 		}
 
 		private void expand(final ArgNode node) {
-			// TODO Auto-generated method stub
+			// TODO Implement the expansion of an ARG node here
 			throw new UnsupportedOperationException("TODO: auto-generated method stub");
 		}
 	}

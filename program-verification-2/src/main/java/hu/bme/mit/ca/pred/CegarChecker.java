@@ -24,8 +24,8 @@ public final class CegarChecker implements SafetyChecker {
 
 	@Override
 	public SafetyResult check() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("TODO: auto-generated method stub");
+		// TODO Implement the main CEGAR loop here.
+		throw new UnsupportedOperationException("TODO: check method not implemented");
 	}
 
 	public enum SearchStrategy {

@@ -34,9 +34,11 @@ public final class BoundedModelChecker implements SafetyChecker {
 
 		while (stopwatch.elapsed(TimeUnit.SECONDS) < timeout) {
 			// TODO Implement bounded model checker:
-			// by building an unwinding of the program,
-			// search for error paths with length not greater than the bound,
-			// and check their feasibility using the SMT solver
+			// 		by building an unwinding of the program,
+			// 		search for error paths with length not greater than the bound,
+			// 		and check their feasibility using the SMT solver
+			// 		See FrameworkTest for an example of how to use solvers and the unfold method
+			// 		Pay attention to use an exploration method that does not unroll loops early.
 
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("TODO: auto-generated method stub");

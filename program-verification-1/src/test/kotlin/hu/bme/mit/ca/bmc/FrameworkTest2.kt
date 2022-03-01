@@ -33,7 +33,7 @@ class FrameworkTest2 {
 
 		println(exprs)
 
-		val solver = Z3SolverFactory.getInstace().createSolver()
+		val solver = Z3SolverFactory.getInstance().createSolver()
 
 		solver.add(exprs)
 		solver.check()

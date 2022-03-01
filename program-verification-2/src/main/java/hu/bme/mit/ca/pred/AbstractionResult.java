@@ -9,36 +9,36 @@ abstract class AbstractionResult {
 	private AbstractionResult() {
 	}
 
-	public static Success success(final ArgNode rootNode) {
-		return new Success(rootNode);
+	public static Safe safe(final ArgNode rootNode) {
+		return new Safe(rootNode);
 	}
 
-	public static Failure failure(final ArgNode errorNode) {
-		return new Failure(errorNode);
+	public static Unsafe unsafe(final ArgNode errorNode) {
+		return new Unsafe(errorNode);
 	}
 
-	public boolean isSuccess() {
+	public boolean isSafe() {
 		return false;
 	}
 
-	public boolean isFailure() {
+	public boolean isUnsafe() {
 		return false;
 	}
 
-	public Success asSuccess() {
+	public Safe asSafe() {
 		throw new ClassCastException();
 	}
 
-	public Failure asFailure() {
+	public Unsafe asUnsafe() {
 		throw new ClassCastException();
 	}
 
 	////
 
-	public static final class Success extends AbstractionResult {
+	public static final class Safe extends AbstractionResult {
 		private final ArgNode rootNode;
 
-		private Success(final ArgNode rootNode) {
+		private Safe(final ArgNode rootNode) {
 			this.rootNode = checkNotNull(rootNode);
 		}
 
@@ -47,12 +47,12 @@ abstract class AbstractionResult {
 		}
 
 		@Override
-		public boolean isSuccess() {
+		public boolean isSafe() {
 			return true;
 		}
 
 		@Override
-		public Success asSuccess() {
+		public Safe asSafe() {
 			return this;
 		}
 
@@ -62,10 +62,10 @@ abstract class AbstractionResult {
 		}
 	}
 
-	public static final class Failure extends AbstractionResult {
+	public static final class Unsafe extends AbstractionResult {
 		private final ArgNode errorNode;
 
-		private Failure(final ArgNode errorNode) {
+		private Unsafe(final ArgNode errorNode) {
 			this.errorNode = checkNotNull(errorNode);
 		}
 
@@ -74,12 +74,12 @@ abstract class AbstractionResult {
 		}
 
 		@Override
-		public boolean isFailure() {
+		public boolean isUnsafe() {
 			return true;
 		}
 
 		@Override
-		public Failure asFailure() {
+		public Unsafe asUnsafe() {
 			return this;
 		}
 

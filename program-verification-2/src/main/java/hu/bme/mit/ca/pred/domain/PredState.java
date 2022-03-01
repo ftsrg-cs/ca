@@ -13,6 +13,11 @@ import hu.bme.mit.theta.common.Utils;
 import hu.bme.mit.theta.core.type.Expr;
 import hu.bme.mit.theta.core.type.booltype.BoolType;
 
+/**
+ * Represents an abstract state in the predicate domain:
+ * the information contained in the abstract state is represented by specifying
+ * for some predicates (boolean expressions) whether they are true or false.
+ */
 public final class PredState {
 	private static final int HASH_SEED = 7621;
 	private static final PredState TOP = PredState.of(ImmutableSet.of());

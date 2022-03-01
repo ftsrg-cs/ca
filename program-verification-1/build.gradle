@@ -17,16 +17,14 @@ apply plugin: 'kotlin'
 
 repositories {
   mavenCentral()
-  maven {
-    url  "https://dl.bintray.com/ftsrg/maven"
-  }
 }
 
 dependencies {
-  compile group: 'theta', name: 'hu.bme.mit.theta.cfa', version: '0.0.1'
-  compile group: 'theta', name: 'hu.bme.mit.theta.core', version: '0.0.1'
-  compile group: 'theta', name: 'hu.bme.mit.theta.solver', version: '0.0.1'
-  compile group: 'theta', name: 'hu.bme.mit.theta.solver.z3', version: '0.0.1'
+  compile files('lib/theta.jar')
+//  compile group: 'theta', name: 'hu.bme.mit.theta.cfa', version: '0.0.1'
+//  compile group: 'theta', name: 'hu.bme.mit.theta.core', version: '0.0.1'
+//  compile group: 'theta', name: 'hu.bme.mit.theta.solver', version: '0.0.1'
+//  compile group: 'theta', name: 'hu.bme.mit.theta.solver.z3', version: '0.0.1'
   compile group: 'com.google.guava', name: 'guava', version: '23.6-jre'
   compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: kotlin_version
   testCompile group: 'junit', name: 'junit', version: '4.12'

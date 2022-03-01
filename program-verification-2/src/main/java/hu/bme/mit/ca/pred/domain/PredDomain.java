@@ -24,14 +24,18 @@ public final class PredDomain {
 	private final Solver liftSolver;
 
 	private PredDomain() {
-		solver = Z3SolverFactory.getInstace().createSolver();
-		liftSolver = Z3SolverFactory.getInstace().createSolver();
+		solver = Z3SolverFactory.getInstance().createSolver();
+		liftSolver = Z3SolverFactory.getInstance().createSolver();
 	}
 
 	public static PredDomain create() {
 		return new PredDomain();
 	}
 
+	/**
+	 * Returns true if the predicate assignment of the state is satisfied by every valuation.
+	 * (So state is semantically equivalent to True)
+	 */
 	public boolean isTop(final PredState state) {
 		solver.push();
 		solver.add(PathUtils.unfold(Not(state.toExpr()), 0));
@@ -40,6 +44,10 @@ public final class PredDomain {
 		return result;
 	}
 
+	/**
+	 * Returns true if the predicate assignments of the state are not satisfiable.
+	 * (So the state is semantically equivalent to False),
+	 */
 	public boolean isBottom(final PredState state) {
 		solver.push();
 		solver.add(PathUtils.unfold(Not(state.toExpr()), 0));
@@ -48,7 +56,12 @@ public final class PredDomain {
 		return result;
 	}
 
-	public boolean isLessOrEqual(final PredState state1, final PredState state2) {
+	/**
+	 * Checks whether state1 is less abstract than state2, meaning that every concrete state
+	 * contained in the abstract state state1 is also contained in the abstract state state2.
+	 * In case of the predicate domain, this is equivalent to saying that "state1 implies state2".
+	 */
+	public boolean isLessAbstractThan(final PredState state1, final PredState state2) {
 		solver.push();
 		solver.add(PathUtils.unfold(state1.toExpr(), 0));
 		solver.add(PathUtils.unfold(Not(state2.toExpr()), 0));

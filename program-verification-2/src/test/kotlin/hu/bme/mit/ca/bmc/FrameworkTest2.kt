@@ -16,7 +16,7 @@ class FrameworkTest2 {
 		val x = Const("x", Int()).ref
 		val y = Const("y", Int()).ref
 
-		val solver = Z3SolverFactory.getInstace().createSolver()
+		val solver = Z3SolverFactory.getInstance().createSolver()
 
 		solver.add(Eq(x, Int(0)));
 		solver.add(Gt(x, y));
