@@ -23,6 +23,14 @@ import hu.bme.mit.theta.cfa.dsl.CfaDslManager;
 @RunWith(value = Parameterized.class)
 public final class CegarCheckerTest {
 
+	/*
+	These are parameterized tests: you will see one test run for each element of the list
+	returned by the data() method. This method returns a list of (filepath, safe) pairs,
+	specifying the two parameters of the tests. The filepath is the path to the file describing
+	the input CFA, and the boolean parameter safe specifies whether the expected output is safe
+	or unsafe.
+	 */
+
 	@Parameter(value = 0)
 	public String filepath;
 
