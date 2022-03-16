@@ -38,9 +38,9 @@ final class Refiner {
 	}
 
 	/**
-	 *
-	 * @param errorNode
-	 * @return A Success refinement result if
+	 * Checks whether the path from the root to the given error node is concretizable. If not, returns Spurious,
+	 * containing a precision with a set of predicates that can eliminate spurious path. If the abstract path is
+	 * concretizable, it returns Unsafe with the error node in it.
 	 */
 	public RefinementResult refine(final ArgNode errorNode) {
 		solver.push();

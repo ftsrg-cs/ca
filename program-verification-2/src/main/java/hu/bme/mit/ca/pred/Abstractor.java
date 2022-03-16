@@ -29,6 +29,10 @@ final class Abstractor {
 
 	////
 
+	/**
+	 * Explores the abstract state space of the CFA model with the given precision (=set of predicates).
+	 * Returns whether the result of the exploration is Unsafe or Safe.
+	 */
 	public AbstractionResult check(final PredPrecision precision) {
 		return new AbstractionBuilder(precision).buildAbstraction();
 	}
@@ -47,7 +51,17 @@ final class Abstractor {
 		public AbstractionResult buildAbstraction() {
 			// TODO Implement the abstract state space exploration here:
 			//  	build an ARG using the expand and close methods;
-			//		use the waitlist
+			//		use the waitlist to store and retrieve the non-expanded reached nodes
+			//		--> this makes the exploration strategy configurable
+			//			(FIFO waitlist => BFS, LIFO waitlist => DFS)
+			//
+			//		The method should return Unsafe if an abstract state with the error location is found,
+			//			with the reached error node provided in it as abstract counterexample.
+			//		If no such state is found, the method should return Safe, with the root node
+			//			of the ARG given as proof.
+			//
+			//		Start the exploration from the initial location of the CFA with fully unknown predicate
+			//		values (= the top element of the predicate domain)
 			throw new UnsupportedOperationException("TODO: buildAbstraction method not implemented!");
 		}
 

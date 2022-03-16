@@ -22,6 +22,34 @@ public final class PredPrecision {
 		this.predicates = collectPredicatesFrom(predicates);
 	}
 
+	/**
+	 * Factory method for creating a precision from a collection of predicates.
+	 */
+	public static PredPrecision of(final Collection<? extends Expr<BoolType>> predicates) {
+		return new PredPrecision(predicates);
+	}
+
+	public static PredPrecision empty() {
+		return EMTPY;
+	}
+
+	/**
+	 * Creates a new precision that contains the predicates of both this precision and the
+	 * one given as argument.
+	 */
+	public PredPrecision join(final PredPrecision that) {
+		final Collection<Expr<BoolType>> predicates = new HashSet<>();
+		predicates.addAll(this.predicates);
+		predicates.addAll(that.predicates);
+		return PredPrecision.of(predicates);
+	}
+
+	public Collection<Expr<BoolType>> getPredicates() {
+		return predicates;
+	}
+
+	////
+
 	private static Collection<Expr<BoolType>> collectPredicatesFrom(
 			final Collection<? extends Expr<BoolType>> predicates) {
 		final ImmutableSet.Builder<Expr<BoolType>> builder = ImmutableSet.builder();
@@ -31,27 +59,6 @@ public final class PredPrecision {
 			}
 		}
 		return builder.build();
-	}
-
-	public static PredPrecision of(final Collection<? extends Expr<BoolType>> predicates) {
-		return new PredPrecision(predicates);
-	}
-
-	public static PredPrecision empty() {
-		return EMTPY;
-	}
-
-	////
-
-	public Collection<Expr<BoolType>> getPredicates() {
-		return predicates;
-	}
-
-	public PredPrecision join(final PredPrecision that) {
-		final Collection<Expr<BoolType>> predicates = new HashSet<>();
-		predicates.addAll(this.predicates);
-		predicates.addAll(that.predicates);
-		return PredPrecision.of(predicates);
 	}
 
 	////

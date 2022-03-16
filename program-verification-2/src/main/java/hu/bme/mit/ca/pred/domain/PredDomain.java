@@ -70,6 +70,13 @@ public final class PredDomain {
 		return isLeq;
 	}
 
+
+	/**
+	 * Lifts a valuation to the given precision: computes whether each of the predicates in the precision
+	 * is true or false if the program variables are assigned to values as given in the valuation. As
+	 * variables can have an unknown value in the valuation, the resulting PredState can also have predicates
+	 * with unknown value.
+	 */
 	public PredState lift(final Valuation valuation, final PredPrecision precision) {
 		checkNotNull(valuation);
 		checkNotNull(precision);
@@ -105,6 +112,14 @@ public final class PredDomain {
 		return PredState.of(statePreds);
 	}
 
+	/**
+	 * Computes the successors of an abstract state with respect to a CFA edge (= applying the statement of the edge
+	 * to the program variables).
+	 * @param state State to get the successors of.
+	 * @param precision Precision of the returned successor states.
+	 * @param edge Edge to use.
+	 * @return The collection of possible next states with the given precision.
+	 */
 	public Collection<PredState> getSuccStates(final PredState state, final PredPrecision precision, final Edge edge) {
 		checkNotNull(state);
 		checkNotNull(precision);

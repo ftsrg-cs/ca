@@ -54,7 +54,7 @@ public abstract class SafetyResult {
 		throw new ClassCastException();
 	}
 
-	public Unknown asUnknow() {
+	public Unknown asUnknown() {
 		throw new ClassCastException();
 	}
 
@@ -132,7 +132,7 @@ public abstract class SafetyResult {
 		}
 
 		@Override
-		public Unknown asUnknow() {
+		public Unknown asUnknown() {
 			return this;
 		}
 

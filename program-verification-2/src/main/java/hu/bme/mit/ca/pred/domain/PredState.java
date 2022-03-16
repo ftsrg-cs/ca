@@ -47,6 +47,9 @@ public final class PredState {
 		return new PredState(predicates);
 	}
 
+	/**
+	 * Returns an abstract state representing zero knowledge.
+	 */
 	public static PredState top() {
 		return TOP;
 	}
