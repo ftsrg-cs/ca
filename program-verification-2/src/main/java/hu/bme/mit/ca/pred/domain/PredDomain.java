@@ -50,7 +50,7 @@ public final class PredDomain {
 	 */
 	public boolean isBottom(final PredState state) {
 		solver.push();
-		solver.add(PathUtils.unfold(Not(state.toExpr()), 0));
+		solver.add(PathUtils.unfold((state.toExpr()), 0));
 		final boolean result = solver.check().isUnsat();
 		solver.pop();
 		return result;
