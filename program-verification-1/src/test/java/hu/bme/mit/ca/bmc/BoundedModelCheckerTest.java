@@ -17,6 +17,8 @@ import org.junit.runners.Parameterized.Parameters;
 import hu.bme.mit.theta.cfa.CFA;
 import hu.bme.mit.theta.cfa.dsl.CfaDslManager;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(value = Parameterized.class)
 public final class BoundedModelCheckerTest {
 
@@ -52,13 +54,13 @@ public final class BoundedModelCheckerTest {
 		final CFA cfa = CfaDslManager.createCfa(inputStream);
 		final SafetyChecker checker = BoundedModelChecker.create(cfa, bound, 5);
 
-//		Uncomment after implementation!
-//		final SafetyResult result = checker.check();
-//		if (safe) {
-//			assertEquals(SafetyResult.UNKNOWN, result);
-//		} else {
-//			assertEquals(SafetyResult.UNSAFE, result);
-//		}
+		//Uncomment after implementation!
+		final SafetyResult result = checker.check();
+		if (safe) {
+			assertEquals(SafetyResult.UNKNOWN, result);
+		} else {
+			assertEquals(SafetyResult.UNSAFE, result);
+		}
 	}
 
 }
