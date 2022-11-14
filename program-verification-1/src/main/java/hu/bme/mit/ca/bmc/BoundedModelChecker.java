@@ -3,11 +3,18 @@ package hu.bme.mit.ca.bmc;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.google.common.base.Stopwatch;
 
 import hu.bme.mit.theta.cfa.CFA;
+import hu.bme.mit.theta.core.stmt.Stmt;
+import hu.bme.mit.theta.core.type.Expr;
+import hu.bme.mit.theta.core.type.booltype.BoolType;
+import hu.bme.mit.theta.solver.Solver;
+import hu.bme.mit.theta.solver.z3.Z3SolverFactory;
 
 public final class BoundedModelChecker implements SafetyChecker {
 
@@ -28,6 +35,17 @@ public final class BoundedModelChecker implements SafetyChecker {
 		return new BoundedModelChecker(cfa, bound, timeout);
 	}
 
+	private final class ExplorerNode {
+		ExplorerNode parent;
+		CFA.Edge edge;
+
+		private ExplorerNode(Optional<ExplorerNode> parent, CFA.Edge edge) {
+			parent.ifPresent(explorerNode -> this.parent = explorerNode);
+			this.edge = edge;
+		}
+
+	}
+
 	@Override
 	public SafetyResult check() {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
@@ -39,14 +57,54 @@ public final class BoundedModelChecker implements SafetyChecker {
 			// 		and check their feasibility using the SMT solver
 			// 		See FrameworkTest for an example of how to use solvers and the unfold method
 			// 		Pay attention to use an exploration method that does not unroll loops early.
+			if (cfa.getErrorLoc().isEmpty())
+				return SafetyResult.SAFE;
+			final CFA.Loc ERROR_LOC = cfa.getErrorLoc().get();
+			List<List<CFA.Edge>> paths = new LinkedList<>();
+			for (CFA.Edge outEdge :
+					cfa.getInitLoc().getOutEdges()) {
+				List<CFA.Edge> path = new LinkedList<>();
+				path.add(outEdge);
+				paths.add(path);
+			}
+			for (int k = 1; k <= bound; k++) {
+				List<List<CFA.Edge>> newPaths = new LinkedList<>();
+				for (List<CFA.Edge> path :
+						paths) {
+					CFA.Loc currentLocation = path.get(path.size() - 1).getTarget();
+					if (currentLocation == ERROR_LOC) {
+						if (isPathSat(path)) {
+							return SafetyResult.UNSAFE;
+						}
+					}
+					currentLocation.getOutEdges().forEach(
+							edge -> {
+								List<CFA.Edge> newPath = new LinkedList<>(path);
+								newPath.add(edge);
+								newPaths.add(newPath);
+							}
+					);
+				}
+				paths = newPaths;
+			}
 
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("TODO: auto-generated method stub");
+			return SafetyResult.UNKNOWN;
 		}
 
 		stopwatch.stop();
 
 		return SafetyResult.TIMEOUT;
+	}
+
+	private boolean isPathSat(Collection<CFA.Edge> path) {
+		Collection<Expr<BoolType>> expressions = new ArrayList<>();
+		List<Stmt> statements = path.stream()
+				.map(CFA.Edge::getStmt)
+				.collect(Collectors.toList());
+		Solver solver = Z3SolverFactory.getInstance().createSolver();
+		solver.add(StmtToExprTransformer.unfold(statements));
+		solver.check();
+		return solver.getStatus().isSat();
 	}
 
 }
