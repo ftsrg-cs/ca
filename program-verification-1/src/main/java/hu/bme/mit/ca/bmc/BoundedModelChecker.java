@@ -40,16 +40,16 @@ public final class BoundedModelChecker implements SafetyChecker {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 
 		while (stopwatch.elapsed(TimeUnit.SECONDS) < timeout) {
+
 			if (cfa.getErrorLoc().isEmpty())
 				return SafetyResult.SAFE;
 			final CFA.Loc ERROR_LOC = cfa.getErrorLoc().get();
-			List<List<CFA.Edge>> paths = new LinkedList<>();
-			for (CFA.Edge outEdge :
-					cfa.getInitLoc().getOutEdges()) {
-				List<CFA.Edge> path = new LinkedList<>();
-				path.add(outEdge);
-				paths.add(path);
-			}
+			List<List<CFA.Edge>> paths =
+					cfa.getInitLoc()
+					.getOutEdges()
+					.stream()
+					.map(Collections::singletonList)
+					.collect(Collectors.toList());
 			for (int k = 1; k <= bound; k++) {
 				List<List<CFA.Edge>> newPaths = new LinkedList<>();
 				for (List<CFA.Edge> path :
