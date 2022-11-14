@@ -59,13 +59,11 @@ public final class BoundedModelChecker implements SafetyChecker {
 					if (currentLocation == ERROR_LOC && isPathSat(path)) {
 						return SafetyResult.UNSAFE;
 					}
-					currentLocation.getOutEdges().forEach(
-							edge -> {
-								List<CFA.Edge> newPath = new LinkedList<>(path);
-								newPath.add(edge);
-								newPaths.add(newPath);
-							}
-					);
+					currentLocation
+							.getOutEdges()
+							.stream()
+							.map(edge -> copyWithExtraElement(path, edge))
+							.forEach(newPaths::add);
 				}
 				paths = newPaths;
 			}
@@ -76,6 +74,12 @@ public final class BoundedModelChecker implements SafetyChecker {
 		stopwatch.stop();
 
 		return SafetyResult.TIMEOUT;
+	}
+
+	private <T> List<T> copyWithExtraElement(Collection<T> list, T element) {
+		List<T> newList = new LinkedList<>(list);
+		newList.add(element);
+		return newList;
 	}
 
 	private boolean isPathSat(Collection<CFA.Edge> path) {
