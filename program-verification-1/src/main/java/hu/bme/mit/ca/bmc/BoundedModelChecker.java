@@ -55,10 +55,8 @@ public final class BoundedModelChecker implements SafetyChecker {
 				for (List<CFA.Edge> path :
 						paths) {
 					CFA.Loc currentLocation = path.get(path.size() - 1).getTarget();
-					if (currentLocation == ERROR_LOC) {
-						if (isPathSat(path)) {
-							return SafetyResult.UNSAFE;
-						}
+					if (currentLocation == ERROR_LOC && isPathSat(path)) {
+						return SafetyResult.UNSAFE;
 					}
 					currentLocation.getOutEdges().forEach(
 							edge -> {
