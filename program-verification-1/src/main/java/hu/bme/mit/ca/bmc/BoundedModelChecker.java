@@ -39,6 +39,7 @@ public final class BoundedModelChecker implements SafetyChecker {
 	public SafetyResult check() {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 
+		//noinspection LoopStatementThatDoesntLoop
 		while (stopwatch.elapsed(TimeUnit.SECONDS) < timeout) {
 
 			if (cfa.getErrorLoc().isEmpty())
