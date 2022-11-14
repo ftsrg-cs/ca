@@ -35,28 +35,11 @@ public final class BoundedModelChecker implements SafetyChecker {
 		return new BoundedModelChecker(cfa, bound, timeout);
 	}
 
-	private final class ExplorerNode {
-		ExplorerNode parent;
-		CFA.Edge edge;
-
-		private ExplorerNode(Optional<ExplorerNode> parent, CFA.Edge edge) {
-			parent.ifPresent(explorerNode -> this.parent = explorerNode);
-			this.edge = edge;
-		}
-
-	}
-
 	@Override
 	public SafetyResult check() {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 
 		while (stopwatch.elapsed(TimeUnit.SECONDS) < timeout) {
-			// TODO Implement bounded model checker:
-			// 		by building an unwinding of the program,
-			// 		search for error paths with length not greater than the bound,
-			// 		and check their feasibility using the SMT solver
-			// 		See FrameworkTest for an example of how to use solvers and the unfold method
-			// 		Pay attention to use an exploration method that does not unroll loops early.
 			if (cfa.getErrorLoc().isEmpty())
 				return SafetyResult.SAFE;
 			final CFA.Loc ERROR_LOC = cfa.getErrorLoc().get();
