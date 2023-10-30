@@ -8,4 +8,4 @@ Make sure to run the tests with Gradle so that the library path is set correctly
 
 ## Tasks
 
-Implement the bounded model checking algorithm in the check() method of the BoundedModelChecker class.
+Implement the bounded model checking algorithm in the check() method of the BoundedModelChecker class. Don't forget to uncomment the assertions in BoundedModelCheckerTest.java after you are done with the implementation so that you can check its correctness.
